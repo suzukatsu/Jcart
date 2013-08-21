@@ -65,13 +65,11 @@ class Jcart {
 
 	/**
 	 * Add an item to the cart
-	 *
 	 * @param string $id
 	 * @param string $name
 	 * @param float $price
 	 * @param mixed $qty
 	 * @param string $url
-	 *
 	 * @return mixed
 	 */
 	private function add_item($id, $name, $price, $qty = 1, $url, $comment = NULL,$discount,$tax) {
@@ -386,9 +384,10 @@ class Jcart {
 				// Total number of items
 				$this -> itemCount += $this -> qtys[$item];
 			}
-			$this -> update_discounttotal();
+			//$this -> getTotal();
+			//$this -> update_discounttotal();
 			$this -> getFlatDiscount();
-			$this -> update_taxtotal();
+			//$this -> update_taxtotal();
 			$this -> getTax();
 			$this -> getTotal();
 			
@@ -744,7 +743,7 @@ class Jcart {
 		echo tab(7) . "<span id='jcart-discount'>( - ) Overall Discount</span>\n";
 		echo tab(6) . "</th>\n";
 		echo tab(6) . "<th >\n";
-		echo tab(7) . "<span><strong>$currencySymbol" . number_format($this -> flat_discount, $priceFormat['decimals'], $priceFormat['dec_point'], $priceFormat['thousands_sep']) . "</strong></span>\n";
+		echo tab(7) . "<span><strong>$currencySymbol" . number_format($this -> getFlatDiscount(), $priceFormat['decimals'], $priceFormat['dec_point'], $priceFormat['thousands_sep']) . "</strong></span>\n";
 		echo tab(6) . "</th>\n";
 		echo tab(5) . "</tr>\n";
 		
