@@ -529,7 +529,19 @@ class Jcart {
 		// Only generate unique token once per session
 		if (!$_SESSION['jcartToken']) {
 			$_SESSION['jcartToken'] = md5(session_id() . time() . $_SERVER['HTTP_USER_AGENT']);
+		}		
+		
+		//added by suzukatsu 2013/09/24
+		// Bugfix 
+		// When you open index.php once and re-open index.php,items don`t appear the cart.
+		// This code is a solution for that bug.
+		else{
+		$itemCheck = $_SESSION['jcart']->itemCount;
+			if($itemCheck == 0 ){
+				$_SESSION = array();
+			}
 		}
+		
 		// If enabled, check submitted token against session token for POST requests
 		if ($config['csrfToken'] === 'true' && $_POST && $jcartToken != $_SESSION['jcartToken']) {
 			$errorMessage = 'Invalid token!' . $jcartToken . ' / ' . $_SESSION['jcartToken'];
